@@ -2,20 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:expressions/expressions.dart';
 
 void main() {
-  runApp(CalculatorApp());
+  runApp(const CalculatorApp());
 }
 
 class CalculatorApp extends StatelessWidget {
+  const CalculatorApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: CalculatorScreen(),
     );
   }
 }
 
 class CalculatorScreen extends StatefulWidget {
+  const CalculatorScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _CalculatorScreenState createState() => _CalculatorScreenState();
 }
 
@@ -30,7 +35,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         _result = '';
       } else if (value == '=') {
         try {
-          final evaluator = const ExpressionEvaluator();
+          const evaluator = ExpressionEvaluator();
           final expression = Expression.parse(_expression);
           final result = evaluator.eval(expression, {});
           _result = ' = $result';
@@ -49,7 +54,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         onPressed: () => _onPressed(value),
         child: Text(
           value,
-          style: TextStyle(fontSize: 24),
+          style: const TextStyle(fontSize: 24),
         ),
       ),
     );
@@ -59,17 +64,17 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Keanna's Calculator"),
+        title: const Text("Keanna's Calculator"),
       ),
       body: Column(
         children: [
           Expanded(
             child: Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               alignment: Alignment.bottomRight,
               child: Text(
                 '$_expression$_result',
-                style: TextStyle(fontSize: 32),
+                style: const TextStyle(fontSize: 32),
                 textAlign: TextAlign.right,
               ),
             ),
@@ -101,9 +106,15 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           Row(
             children: [
               _buildButton('0'),
+              _buildButton('('),
+              _buildButton(')'),
+              _buildButton('+'),
+            ],
+          ),
+          Row(
+            children: [
               _buildButton('C'),
               _buildButton('='),
-              _buildButton('+'),
             ],
           ),
         ],
